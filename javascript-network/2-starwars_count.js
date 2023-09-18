@@ -11,7 +11,7 @@ if (process.argv.length !== 3) {
 // Get the API URL from the command line arguments
 const apiUrl = process.argv[2];
 
-// Send a GET request to the API to retrieve character data for Wedge Antilles
+// Send a GET request to the API
 request.get(apiUrl, (error, response, body) => {
   if (error) {
     console.error(`Error: ${error.message}`);
@@ -22,10 +22,17 @@ request.get(apiUrl, (error, response, body) => {
   } else {
     try {
       // Parse the JSON response
-      const characterData = JSON.parse(body);
+      const filmsData = JSON.parse(body);
 
-      // Check the films array in character data and count the occurrences
-      const count = characterData.films.length;
+      // Initialize a count for movies with Wedge Antilles
+      let count = 0;
+
+      // Iterate through the films to count occurrences of Wedge Antilles
+      for (const film of filmsData.results) {
+        if (film.characters.includes('https://swapi-api.alx-tools.com/api/people/18/')) {
+          count++;
+        }
+      }
 
       // Print the count
       console.log(count);
