@@ -1,20 +1,19 @@
 #!usr/bin/node 
 const request = require('request');
+const fs = require('fs');
 
-// Check if the movie ID argument is provided
-if (process.argv.length !== 3) {
-  console.error('Usage: node 5-starwars_characters.js <Movie ID>');
+// Check if both URL and file path arguments are provided
+if (process.argv.length !== 4) {
+  console.error('Usage: node 3-request_store.js <URL> <file-path>');
   process.exit(1);
 }
 
-// Get the movie ID from the command line arguments
-const movieID = process.argv[2];
+// Get the URL and file path from the command line arguments
+const url = process.argv[2];
+const filePath = process.argv[3];
 
-// Construct the URL for the Star Wars API to get movie details
-const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieID}/`;
-
-// Send a GET request to the API to get movie details
-request.get(apiUrl, (error, response, body) => {
+// Send a GET request to the URL
+request.get(url, (error, response, body) => {
   if (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
@@ -22,27 +21,14 @@ request.get(apiUrl, (error, response, body) => {
     console.error(`Error: Request failed with status code ${response.statusCode}`);
     process.exit(1);
   } else {
-    try {
-      // Parse the JSON response to get character URLs
-      const movieData = JSON.parse(body);
-      const characterUrls = movieData.characters;
-
-      // Fetch and print character names
-      characterUrls.forEach((characterUrl) => {
-        request.get(characterUrl, (charError, charResponse, charBody) => {
-          if (charError) {
-            console.error(`Error fetching character data: ${charError.message}`);
-          } else if (charResponse.statusCode !== 200) {
-            console.error(`Error: Request failed with status code ${charResponse.statusCode}`);
-          } else {
-            const characterData = JSON.parse(charBody);
-            console.log(characterData.name);
-          }
-        });
-      });
-    } catch (parseError) {
-      console.error(`Error parsing JSON response: ${parseError.message}`);
-      process.exit(1);
-    }
+    // Write the response body to the specified file
+    fs.writeFile(filePath, body, 'utf-8', (writeError) => {
+      if (writeError) {
+        console.error(`Error writing to file: ${writeError.message}`);
+        process.exit(1);
+      } else {
+        console.log(`File "${filePath}" successfully created and written.`);
+      }
+    });
   }
 });
