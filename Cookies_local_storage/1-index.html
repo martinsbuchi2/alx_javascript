@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie App</title>
+</head>
+
+<body>
+    <h1>Login to the website</h1>
+    <input type="text" id="firstname" placeholder="First Name">
+    <input type="text" id="email" placeholder="Email">
+    <button onclick="setCookies()">Log me in</button>
+    <h1>Cookies</h1>
+    <button onclick="showCookies()">Show the cookies</button>
+
+    <script>
+
+        // Function to set cookies with a 10-day expiration
+        function setCookies() {
+            const firstnameInput = document.getElementById('firstname');
+            const emailInput = document.getElementById('email');
+
+            const firstname = firstnameInput.value;
+            const email = emailInput.value;
+
+            // Set cookies with a 10-day expiration
+            Cookies.set('firstname', firstname, { expires: 10 });
+            Cookies.set('email', email, { expires: 10 });
+
+            firstnameInput.value = '';
+            emailInput.value = '';
+        }
+
+        // Function to show cookies
+        function showCookies() {
+            const cookies = Cookies.get();
+            const cookiesParagraph = document.createElement('p');
+            cookiesParagraph.innerHTML = `Cookies: ${JSON.stringify(cookies)}`;
+
+            document.body.appendChild(cookiesParagraph);
+        }
+
+        // Expose the functions globally so they can be called from HTML
+        window.setCookies = setCookies;
+        window.showCookies = showCookies;
+    </script>
+</body>
+
+</html>
