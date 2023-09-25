@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie App</title>
+</head>
+<body>
+    <h1>Login to the website</h1>
+    <div id="login-form" style="display: none;">
+        <h2>Login Form</h2>
+        <input type="text" id="firstname" placeholder="First Name">
+        <input type="text" id="email" placeholder="Email">
+        <button onclick="setCookies()">Log me in</button>
+    </div>
+
+    <script>
+        function setCookies() {
+            const firstname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
+
+            // Calculate the expiration date (10 days from now)
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 10);
+
+            // Set cookies with expiration date
+            document.cookie = `firstname=${firstname}; expires=${expirationDate.toUTCString()}`;
+            document.cookie = `email=${email}; expires=${expirationDate.toUTCString()}`;
+
+            // Hide the form after setting cookies
+            //hideForm();
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split('; ');
+            for (const cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName === name) {
+                    return cookieValue;
+                }
+            }
+            return '';
+        }
+
+        function showForm() {
+            // Remove the welcome message if it exists
+            const welcomeMessage = document.getElementById('welcome-message');
+            if (welcomeMessage) {
+                welcomeMessage.remove();
+            }
+
+            // Show the login form
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function hideForm() {
+            // Hide the login form
+            document.getElementById('login-form').style.display = 'none';
+        }
+
+        function deleteCookiesAndShowForm() {
+            // Remove the cookies
+            document.cookie = 'firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+            document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+
+            // Show the login form
+            showForm();
+        }
+
+        function showWelcomeMessageOrForm() {
+            const firstnameCookie = getCookie('firstname');
+
+            if (firstnameCookie) {
+                // User is logged in, display welcome message
+                const welcomeMessage = document.createElement('h1');
+                welcomeMessage.id = 'welcome-message';
+                welcomeMessage.innerHTML = `Welcome: ${firstnameCookie} <a href="#" onclick="deleteCookiesAndShowForm()"> (logout)</a>`;
+                welcomeMessage.style.fontStyle = 'italic';
+                welcomeMessage.style.fontWeight = 'normal';
+                welcomeMessage.style.marginLeft = '10px';
+                welcomeMessage.querySelector('a').style.color = 'blue';
+
+                // Replace the body content with the welcome message
+                document.body.innerHTML = '';
+                document.body.appendChild(welcomeMessage);
+            } else {
+                // User is not logged in, show the login form
+                showForm();
+            }
+        }
+
+        // Call showWelcomeMessageOrForm on page load
+        showWelcomeMessageOrForm();
+    </script>
+</body>
+</html>
