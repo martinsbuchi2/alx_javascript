@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie App</title>
 </head>
-
 <body>
     <h1>Login to the website</h1>
     <input type="text" id="firstname" placeholder="First Name">
@@ -14,45 +10,48 @@
     <button onclick="setCookies()">Log me in</button>
     <h1>Cookies</h1>
     <button onclick="showCookies()">Show the cookies</button>
-
+    
     <script>
-        // Function to set cookies with a 10-day expiration
         function setCookies() {
-            const firstnameInput = document.getElementById('firstname');
-            const emailInput = document.getElementById('email');
+            const firstname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
 
-            const firstname = firstnameInput.value;
-            const email = emailInput.value;
+            // Calculate the expiration date (10 days from now)
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 10);
 
-            // Set cookies with a 10-day expiration
-            Cookies.set('firstname', firstname, { expires: 10 });
-            Cookies.set('email', email, { expires: 10 });
-
-            firstnameInput.value = '';
-            emailInput.value = '';
+            // Set cookies with expiration date
+            document.cookie = `firstname=${firstname}; expires=${expirationDate.toUTCString()}`;
+            document.cookie = `email=${email}; expires=${expirationDate.toUTCString()}`;
         }
-
-        // Function to retrieve a specific cookie by name
+        
         function getCookie(name) {
-            return Cookies.get(name) || ''; // Return an empty string if the cookie does not exist
+            const cookies = document.cookie.split('; ');
+            for (const cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName === name) {
+                    return cookieValue;
+                }
+            }
+            return '';
         }
 
-        // Function to show cookies with modified display
         function showCookies() {
             const emailCookie = getCookie('email');
             const firstnameCookie = getCookie('firstname');
-
-            const cookiesParagraph = document.createElement('p');
-            cookiesParagraph.innerHTML = `Email: ${emailCookie} - Firstname: ${firstnameCookie}`;
-
-            document.body.appendChild(cookiesParagraph);
+            
+            // Create a paragraph element
+            const paragraph = document.createElement('p');
+            
+            // Set the inner HTML of the paragraph to display cookies
+            paragraph.innerHTML = `Email: ${emailCookie} - Firstname: ${firstnameCookie}`;
+            
+            // Append the paragraph to the body of the page
+            document.body.appendChild(paragraph);
         }
 
-        // Expose the functions globally so they can be called from HTML
-        window.setCookies = setCookies;
-        window.showCookies = showCookies;
-        window.getCookie = getCookie;
+
+        
     </script>
 </body>
-
 </html>
