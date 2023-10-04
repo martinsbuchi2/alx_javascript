@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Creating and Removing Elements</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <button id="btn">Toggle Paragraph</button>
+</body>
+<script>
+    const containerDiv = document.getElementById('container'); // get the element with an ID of "container" from our HTML page (index.html)
+    const btnKey = document.getElementById('btn')
+    let paragraphElement = '';
+
+    // Create a new element.
+    const newPara = document.createElement('p');
+    newPara.textContent = 'New paragraph';
+    
+    // Add the newly created element to an existing DOM node
+    containerDiv.appendChild(newPara);
+
+   btnKey.addEventListener('click', function(){
+         if (paragraphElement) {
+            // Remove it from its current position in the tree:
+            newPara.style.display = 'none';
+            paragraphElement = false;
+            btnKey.textContent = 'Show Paragraph'
+
+        } else {
+            // If paragraph is hidden, show it
+        newPara.style.display = 'block';
+        paragraphElement = true;
+        btnKey.textContent = 'Hide Paragraph';
+        }
+
+   })
+   
+</script>
+
+</html>
