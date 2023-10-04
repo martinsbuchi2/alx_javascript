@@ -18,15 +18,15 @@ JavaScript program that demonstrates the basic concept of the DOM by accessing a
 
 Use the HTML code below as the starting point and add your JavaScript code as an internal <script> tag:
 
-$ <!DOCTYPE html>
-$ <html>
-$ <head>
-$   <title>DOM Introduction</title>
-$ </head>
-$ <body>
-$   <p id="myParagraph">This is a $ paragraph.</p>
-$ </body>
-$ </html>
+'''<!DOCTYPE html>
+<html>
+<head>
+  <title>DOM Introduction</title>
+</head>
+<body>
+  <p id="myParagraph">This is a paragraph.</p>
+</body>
+</html>'''
 
 * Write JavaScript code to select the element using its id and store it in a variable
 * Use the DOM API to modify the content of the <p> element to I successfully updated this paragraph with javascript
@@ -64,7 +64,7 @@ Use the HTML code below as the starting point and add your JavaScript code as an
 JavaScript program that demonstrates the creation, appending, and removal of elements using the DOM.
 
 Use the HTML code below as the starting point and add your JavaScript code as an internal <script> tag:
-<!-- 
+'''
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +73,7 @@ Use the HTML code below as the starting point and add your JavaScript code as an
 <body>
   <div id="container"></div>
 </body>
-</html> -->
+</html>'''
 
 * Write JavaScript code to select the container element using its id and store it in a variable.
 * Use the DOM API to create a new <p> element, and add New paragraph as its content
