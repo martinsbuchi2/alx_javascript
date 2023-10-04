@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Modifying Elements</title>
+    <style>
+        img {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="myImage" src="https://picsum.photos/200/300" alt="My Image">
+</body>
+
+<script>
+    // Get the image with ID "myImage".
+    var myImage = document.getElementById("myImage");
+    // Change its source to "https://picsum.photos/200/301":
+    myImage.src = "https://picsum.photos/200/301";
+    myImage.alt = "New image"
+    myImage.style.border = '2px solid red'
+</script>
+
+</html>
