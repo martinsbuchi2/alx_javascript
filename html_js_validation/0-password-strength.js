@@ -12,18 +12,18 @@ function validatePassword() {
     const specialCharRegex = /[!@#$%^&*]/;
 
     if (password.length < 8) {
-        errorElement.textContent = "Password must be at least 8 characters long.";
+        errorElement.innerHTML = "Password must be at least 8 characters long.";
     } else if (!uppercaseRegex.test(password)) {
-        errorElement.textContent = "Password must contain at least one uppercase letter.";
+        errorElement.innerHTML = "Password must contain at least one uppercase letter.";
     } else if (!lowercaseRegex.test(password)) {
-        errorElement.textContent = "Password must contain at least one lowercase letter.";
+        errorElement.innerHTML = "Password must contain at least one lowercase letter.";
     } else if (!digitRegex.test(password)) {
-        errorElement.textContent = "Password must contain at least one numeric digit.";
+        errorElement.innerHTML = "Password must contain at least one numeric digit.";
     } else if (!specialCharRegex.test(password)) {
-        errorElement.textContent = "Password must contain at least one special character (e.g., !@#$%^&*).";
+        errorElement.innerHTML = "Password must contain at least one special character (e.g., !@#$%^&*).";
     } else {
         //Password meets all criteria, allow form submission
-        errorElement.textContent = "";
+        errorElement.innerHTML = "";
         document.getElementById("passwordForm").submit();
     }
 }
